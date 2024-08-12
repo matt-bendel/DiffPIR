@@ -47,7 +47,7 @@ def main():
     save_progressive        = False              # save generation process
 
     sigma                   = max(0.001,noise_level_img)  # noise level associated with condition y
-    lambda_                 = 1.                # key parameter lambda
+    lambda_                 = 2.                # key parameter lambda
     sub_1_analytic          = True              # use analytical solution
 
     log_process             = False
@@ -56,12 +56,12 @@ def main():
     generate_mode           = 'DiffPIR'         # DiffPIR; DPS; vanilla
     skip_type               = 'quad'            # uniform, quad
     eta                     = 0.                # eta for ddim sampling
-    zeta                    = 0.1               
+    zeta                    = 0.25
     guidance_scale          = 1.0   
 
     test_sf                 = [4]               # set scale factor, default: [2, 3, 4], [2], [3], [4]
-    inIter                  = 1                 # iter num for sr solution: 4-6
-    gamma                   = 1/100             # coef for iterative sr solver 20steps: 0.05-0.10 for zeta=1, 0.09-0.13 for zeta=0 
+    inIter                  = 5                 # iter num for sr solution: 4-6
+    gamma                   = 0.05            # coef for iterative sr solver 20steps: 0.05-0.10 for zeta=1, 0.09-0.13 for zeta=0
     classical_degradation   = False             # set classical degradation or bicubic degradation
     task_current            = 'sr'              # 'sr' for super resolution
     n_channels              = 3                 # fixed

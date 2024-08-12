@@ -30,7 +30,7 @@ def main():
     # Preparation
     # ----------------------------------------
 
-    noise_level_img         = 12.75/255.0       # set AWGN noise level for LR image, default: 0
+    noise_level_img         = 0.0/255.0       # set AWGN noise level for LR image, default: 0
     noise_level_model       = noise_level_img   # set noise level of model, default: 0
     model_name              = 'diffusion_ffhq_10m'  # diffusion_ffhq_10m, 256x256_diffusion_uncond; set diffusino model
     testset_name            = 'demo_test'    # set testing set,  'imagenet_val' | 'ffhq_val'
@@ -38,11 +38,11 @@ def main():
     iter_num                = 100                # set number of sampling iterations
     iter_num_U              = 1                 # set number of inner iterations, default: 1
     skip                    = num_train_timesteps//iter_num     # skip interval
-    sr_mode                 = 'blur'            # 'blur', 'cubic' mode of sr up/down sampling
+    sr_mode                 = 'cubic'            # 'blur', 'cubic' mode of sr up/down sampling
 
     show_img                = False             # default: False
     save_L                  = True              # save LR image
-    save_E                  = False             # save estimated image
+    save_E                  = True             # save estimated image
     save_LEH                = False             # save zoomed LR, E and H images
     save_progressive        = True              # save generation process
 
@@ -65,12 +65,12 @@ def main():
     classical_degradation   = False             # set classical degradation or bicubic degradation
     task_current            = 'sr'              # 'sr' for super resolution
     n_channels              = 3                 # fixed
-    cwd                     = '' 
+    cwd                     = '/storage/diffpir'
     model_zoo               = os.path.join(cwd, 'model_zoo')    # fixed
     testsets                = os.path.join(cwd, 'testsets')     # fixed
     results                 = os.path.join(cwd, 'results')      # fixed
     result_name             = f'{testset_name}_{task_current}_{generate_mode}_{sr_mode}{str(test_sf)}_{model_name}_sigma{noise_level_img}_NFE{iter_num}_eta{eta}_zeta{zeta}_lambda{lambda_}'
-    model_path              = os.path.join(model_zoo, model_name+'.pt')
+    model_path              = '/storage/matt_models/dps/ffhq_10m.pt'
     device                  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     torch.cuda.empty_cache()
 
@@ -98,7 +98,7 @@ def main():
     # L_path, E_path, H_path
     # ----------------------------------------
 
-    L_path = os.path.join(testsets, testset_name) # L_path, for Low-quality images
+    L_path = '/storage/FFHQ/ffhq256_diffpirtest/0' # L_path, for Low-quality images
     E_path = os.path.join(results, result_name)   # E_path, for Estimated images
     util.mkdir(E_path)
 
@@ -418,7 +418,7 @@ def main():
                         logger.info('{:->4d}--> {:>10s} -- sf:{:>1d} --k:{:>2d} PSNR: {:.4f}dB'.format(idx+1, img_name+ext, sf, k_index, psnr))
 
                     if save_E:
-                        util.imsave(img_E, os.path.join(E_path, img_name+'_x'+str(sf)+'_k'+str(k_index)+'_'+model_name+ext))
+                        util.imsave(img_E, os.path.join(E_path, 'samples/'+img_name+'_x'+str(sf)+'_k'+str(k_index)+'_'+model_name+ext))
 
                     if n_channels == 1:
                         img_H = img_H.squeeze()

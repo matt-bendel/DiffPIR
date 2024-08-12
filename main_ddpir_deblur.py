@@ -395,7 +395,7 @@ def main():
                 img_H = img_H.squeeze()
 
             if save_E:
-                util.imsave(img_E, os.path.join(E_path, img_name+'_'+model_name+ext))
+                util.imsave(img_E, os.path.join(E_path, 'samples/'+img_name+'_'+model_name+ext))
 
             if save_progressive:
                 now = datetime.now()

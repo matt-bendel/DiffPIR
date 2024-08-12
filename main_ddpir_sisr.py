@@ -33,7 +33,7 @@ def main():
     noise_level_img         = 0.0/255.0       # set AWGN noise level for LR image, default: 0
     noise_level_model       = noise_level_img   # set noise level of model, default: 0
     model_name              = 'diffusion_ffhq_10m'  # diffusion_ffhq_10m, 256x256_diffusion_uncond; set diffusino model
-    testset_name            = 'demo_test'    # set testing set,  'imagenet_val' | 'ffhq_val'
+    testset_name            = 'ffhq_val_100'    # set testing set,  'imagenet_val' | 'ffhq_val'
     num_train_timesteps     = 1000
     iter_num                = 100                # set number of sampling iterations
     iter_num_U              = 1                 # set number of inner iterations, default: 1
@@ -44,7 +44,7 @@ def main():
     save_L                  = True              # save LR image
     save_E                  = True             # save estimated image
     save_LEH                = False             # save zoomed LR, E and H images
-    save_progressive        = True              # save generation process
+    save_progressive        = False              # save generation process
 
     sigma                   = max(0.001,noise_level_img)  # noise level associated with condition y
     lambda_                 = 1.                # key parameter lambda

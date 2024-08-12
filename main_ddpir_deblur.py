@@ -30,7 +30,7 @@ def main():
     # Preparation
     # ----------------------------------------
 
-    noise_level_img         = 0.0/255.0           # set AWGN noise level for LR image, default: 0
+    noise_level_img         = 12.75/255.0           # set AWGN noise level for LR image, default: 0
     noise_level_model       = noise_level_img       # set noise level of model, default: 0
     model_name              = 'diffusion_ffhq_10m'  # diffusion_ffhq_10m, 256x256_diffusion_uncond; set diffusino model
     testset_name            = 'ffhq_val_100'            # set testing set,  'imagenet_val' | 'ffhq_val'

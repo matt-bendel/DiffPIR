@@ -37,7 +37,7 @@ def main():
 
     mask_name               = 'gt_keep_masks/face/000000.png'   # mask path for loading mask img
     load_mask               = False
-    mask_type               = 'random'  #['box', 'random', 'both', 'extreme']
+    mask_type               = 'box'  #['box', 'random', 'both', 'extreme']
     mask_len_range          = [128, 129]
     mask_prob_range         = [0.5, 0.5]
 
@@ -63,12 +63,12 @@ def main():
     log_process             = False
     task_current            = 'ip'              # 'ip' for inpainting
     n_channels              = 3                 # fixed
-    cwd                     = ''
+    cwd                     = '/storage/diffpir'
     model_zoo               = os.path.join(cwd, 'model_zoo')    # fixed
-    testsets                = os.path.join(cwd, 'testsets')     # fixed
+    testsets                = os.path.join('', 'testsets')     # fixed
     results                 = os.path.join(cwd, 'results')      # fixed
     result_name             = f'{testset_name}_{task_current}_{generate_mode}_{mask_type}_{model_name}_sigma{noise_level_img}_NFE{iter_num}_eta{eta}_zeta{zeta}_lambda{lambda_}'
-    model_path              = os.path.join(model_zoo, model_name+'.pt')
+    model_path              = '/storage/matt_models/dps/ffhq_10m.pt'
     device                  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     torch.cuda.empty_cache()
 
@@ -96,7 +96,7 @@ def main():
     # L_path, E_path, H_path, mask_path
     # ----------------------------------------
 
-    L_path                  = os.path.join(testsets, testset_name)      # L_path, for Low-quality images
+    L_path = '/storage/FFHQ/ffhq256_diffpirtest/0' # L_path, for Low-quality images
     E_path                  = os.path.join(results, result_name)        # E_path, for Estimated images
     mask_path               = os.path.join(testsets, mask_name)         # mask_path, for mask images
     util.mkdir(E_path)

@@ -74,8 +74,8 @@ def random_sq_bbox(img, mask_shape, image_size=256, margin=(16, 16)):
     maxl = image_size - margin_width - w
 
     # bb
-    t = np.random.randint(margin_height, maxt)
-    l = np.random.randint(margin_width, maxl)
+    t = 64
+    l = 64
 
     # make mask
     mask = torch.ones([B, C, H, W], device=img.device)
@@ -102,8 +102,8 @@ class mask_generator:
     def _retrieve_box(self, img):
         l, h = self.mask_len_range
         l, h = int(l), int(h)
-        mask_h = np.random.randint(l, h)
-        mask_w = np.random.randint(l, h)
+        mask_h = 128
+        mask_w = 128
         mask, t, tl, w, wh = random_sq_bbox(img,
                               mask_shape=(mask_h, mask_w),
                               image_size=self.image_size,

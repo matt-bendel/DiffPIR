@@ -150,9 +150,9 @@ def main():
 
     # kernels = hdf5storage.loadmat(os.path.join('kernels', 'Levin09.mat'))['kernels']
     if classical_degradation:
-        kernels = hdf5storage.loadmat(os.path.join(cwd, 'kernels', 'kernels_12.mat'))['kernels']
+        kernels = hdf5storage.loadmat(os.path.join('', 'kernels', 'kernels_12.mat'))['kernels']
     else:
-        kernels = hdf5storage.loadmat(os.path.join(cwd, 'kernels', 'kernels_bicubicx234.mat'))['kernels']
+        kernels = hdf5storage.loadmat(os.path.join('', 'kernels', 'kernels_bicubicx234.mat'))['kernels']
 
     test_results_ave = OrderedDict()
     test_results_ave['psnr_sf_k'] = []

@@ -42,7 +42,7 @@ def main():
     mask_prob_range         = [0.5, 0.5]
 
     show_img                = False             # default: False
-    save_L                  = False             # save LR image
+    save_L                  = True             # save LR image
     save_E                  = True              # save estimated image
     save_LEH                = False             # save zoomed LR, E and H images
     save_progressive        = False             # save generation process
@@ -338,7 +338,7 @@ def main():
                 pass
 
             if save_E:
-                util.imsave(img_E, os.path.join(E_path, img_name+'_'+model_name+ext))
+                util.imsave(img_E, os.path.join(E_path, 'samples/'+img_name+'_'+model_name+ext))
 
             if save_L:
                 util.imsave(util.single2uint(img_L), os.path.join(E_path, img_name+'_L'+ext))

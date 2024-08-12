@@ -33,7 +33,7 @@ def main():
     noise_level_img         = 12.75/255.0           # set AWGN noise level for LR image, default: 0
     noise_level_model       = noise_level_img       # set noise level of model, default: 0
     model_name              = 'diffusion_ffhq_10m'  # diffusion_ffhq_10m, 256x256_diffusion_uncond; set diffusino model
-    testset_name            = 'demo_test'            # set testing set,  'imagenet_val' | 'ffhq_val'
+    testset_name            = 'ffhq_val_100'            # set testing set,  'imagenet_val' | 'ffhq_val'
     num_train_timesteps     = 1000
     iter_num                = 100                # set number of iterations
     iter_num_U              = 1                 # set number of inner iterations, default: 1
@@ -68,12 +68,12 @@ def main():
     sf                      = 1
     task_current            = 'deblur'          
     n_channels              = 3                 # fixed
-    cwd                     = ''  
+    cwd                     = '/storage/diffpir'
     model_zoo               = os.path.join(cwd, 'model_zoo')    # fixed
     testsets                = os.path.join(cwd, 'testsets')     # fixed
     results                 = os.path.join(cwd, 'results')      # fixed
     result_name             = f'{testset_name}_{task_current}_{generate_mode}_{model_name}_sigma{noise_level_img}_NFE{iter_num}_eta{eta}_zeta{zeta}_lambda{lambda_}_blurmode{blur_mode}'
-    model_path              = os.path.join(model_zoo, model_name+'.pt')
+    model_path              = '/storage/matt_models/dps/ffhq_10m.pt'
     device                  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     torch.cuda.empty_cache()
 

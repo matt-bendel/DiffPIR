@@ -68,10 +68,10 @@ def main():
             zeta = 0.3
     else:
         if iter_num == 20:
-            lambda_ = 1.5
+            lambda_ = 15.0
             zeta = 0.5
         else:
-            lambda_ = 3.0
+            lambda_ = 12.0
             zeta = 0.4
 
     calc_LPIPS              = True
@@ -152,6 +152,10 @@ def main():
         for k, v in model.named_parameters():
             v.requires_grad = False
     model = model.to(device)
+
+    print(zeta)
+    print(lambda_)
+    exit()
 
     logger.info('model_name:{}, image sigma:{:.3f}, model sigma:{:.3f}'.format(model_name, noise_level_img, noise_level_model))
     logger.info('eta:{:.3f}, zeta:{:.3f}, lambda:{:.3f}, guidance_scale:{:.2f} '.format(eta, zeta, lambda_, guidance_scale))

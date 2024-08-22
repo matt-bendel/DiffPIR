@@ -83,10 +83,10 @@ def main():
     classical_degradation   = False             # set classical degradation or bicubic degradation
     task_current            = 'sr'              # 'sr' for super resolution
     n_channels              = 3                 # fixed
-    cwd                     = f'/storage/diffpir/{iter_num}'
+    cwd                     = f'/storage/diffpir'
     model_zoo               = os.path.join(cwd, 'model_zoo')    # fixed
     testsets                = os.path.join(cwd, 'testsets')     # fixed
-    results                 = os.path.join(cwd, 'results')      # fixed
+    results                 = os.path.join(cwd, f'{iter_num}')      # fixed
     result_name             = f'{testset_name}_{task_current}_{generate_mode}_{sr_mode}{str(test_sf)}_{model_name}_sigma{noise_level_img}_NFE{iter_num}_eta{eta}_zeta{zeta}_lambda{lambda_}'
     model_path              = '/storage/matt_models/dps/ffhq_10m.pt'
     device                  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

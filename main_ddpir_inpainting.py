@@ -76,7 +76,7 @@ def main():
     cwd                     = '/storage/diffpir'
     model_zoo               = os.path.join(cwd, 'model_zoo')    # fixed
     testsets                = os.path.join('', 'testsets')     # fixed
-    results                 = os.path.join(cwd, 'results')      # fixed
+    results                 = os.path.join(cwd, f'{iter_num}')      # fixed
     result_name             = f'{testset_name}_{task_current}_{generate_mode}_{mask_type}_{model_name}_sigma{noise_level_img}_NFE{iter_num}_eta{eta}_zeta{zeta}_lambda{lambda_}'
     model_path              = '/storage/matt_models/dps/ffhq_10m.pt'
     device                  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

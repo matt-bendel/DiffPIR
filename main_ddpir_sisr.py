@@ -30,7 +30,7 @@ def main():
     # Preparation
     # ----------------------------------------
 
-    noise_level_img         = 12.75/255.0       # set AWGN noise level for LR image, default: 0
+    noise_level_img         = 0.0#12.75/255.0       # set AWGN noise level for LR image, default: 0
     noise_level_model       = noise_level_img   # set noise level of model, default: 0
     model_name              = 'diffusion_ffhq_10m'  # diffusion_ffhq_10m, 256x256_diffusion_uncond; set diffusino model
     testset_name            = 'ffhq_val_100'    # set testing set,  'imagenet_val' | 'ffhq_val'
@@ -57,7 +57,25 @@ def main():
     skip_type               = 'quad'            # uniform, quad
     eta                     = 0.                # eta for ddim sampling
     zeta                    = 0.25
-    guidance_scale          = 1.0   
+    guidance_scale          = 1.0
+
+    if noise_level_img > 0:
+        if iter_num == 20:
+            lambda_ = 8.0
+            zeta = 0.4
+        else:
+            lambda_ = 8.0
+            zeta = 0.2
+    else:
+        if iter_num == 20:
+            lambda_ = 9.0
+            zeta = 0.2
+        else:
+            lambda_ = 6.0
+            zeta = 0.3
+
+    print(lambda_)
+    print(zeta)
 
     test_sf                 = [4]               # set scale factor, default: [2, 3, 4], [2], [3], [4]
     inIter                  = 5                 # iter num for sr solution: 4-6
@@ -65,7 +83,7 @@ def main():
     classical_degradation   = False             # set classical degradation or bicubic degradation
     task_current            = 'sr'              # 'sr' for super resolution
     n_channels              = 3                 # fixed
-    cwd                     = '/storage/diffpir'
+    cwd                     = f'/storage/diffpir/{iter_num}'
     model_zoo               = os.path.join(cwd, 'model_zoo')    # fixed
     testsets                = os.path.join(cwd, 'testsets')     # fixed
     results                 = os.path.join(cwd, 'results')      # fixed

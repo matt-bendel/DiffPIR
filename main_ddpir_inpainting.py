@@ -26,7 +26,7 @@ def main():
     # Preparation
     # ----------------------------------------
 
-    noise_level_img         = 0/255.0           # set AWGN noise level for LR image, default: 0
+    noise_level_img         = 0.0 #0.0/255.0           # set AWGN noise level for LR image, default: 0
     noise_level_model       = noise_level_img   # set noise level of model, default: 0
     model_name              = 'diffusion_ffhq_10m'  # 256x256_diffusion_uncond, diffusion_ffhq_10m; set diffusino model
     testset_name            = 'demo_test'        # set testing set, 'imagenet_val' | 'ffhq_val'
@@ -53,7 +53,17 @@ def main():
     sub_1_analytic          = True              # use analytical solution
     eta                     = 0.0               # eta for ddim samplingn  
     zeta                    = 1.0                      
-    guidance_scale          = 1.0   
+    guidance_scale          = 1.0
+
+    if noise_level_img > 0:
+        pass # TODO
+    else:
+        if iter_num == 20:
+            lambda_ = 6.0
+            zeta = 1.0
+        else:
+            lambda_ = 6.0
+            zeta = 0.5
     
     model_out_type          = 'pred_xstart'     # model output type: pred_x_prev; pred_xstart; epsilon; score
     generate_mode           = 'DiffPIR'           # repaint; vanilla; DiffPIR

@@ -30,7 +30,7 @@ def main():
     # Preparation
     # ----------------------------------------
 
-    noise_level_img         = 12.75/255.0           # set AWGN noise level for LR image, default: 0
+    noise_level_img         = 0.0#12.75/255.0           # set AWGN noise level for LR image, default: 0
     noise_level_model       = noise_level_img       # set noise level of model, default: 0
     model_name              = 'diffusion_ffhq_10m'  # diffusion_ffhq_10m, 256x256_diffusion_uncond; set diffusino model
     testset_name            = 'ffhq_val_100'            # set testing set,  'imagenet_val' | 'ffhq_val'
@@ -47,7 +47,7 @@ def main():
     border                  = 0
 	
     sigma                   = max(0.001,noise_level_img)  # noise level associated with condition y
-    lambda_                 = 1.0               # key parameter lambda
+    lambda_                 = 12.0               # key parameter lambda
     sub_1_analytic          = True              # use analytical solution
     
     log_process             = False
@@ -56,8 +56,23 @@ def main():
     generate_mode           = 'DiffPIR'         # DiffPIR; DPS; vanilla
     skip_type               = 'quad'            # uniform, quad
     eta                     = 0.0               # eta for ddim sampling
-    zeta                    = 0.1  
-    guidance_scale          = 1.0   
+    zeta                    = 0.4
+    guidance_scale          = 1.0
+
+    if noise_level_img > 0:
+        if iter_num == 20:
+            lambda_ = 8.0
+            zeta = 0.5
+        else:
+            lambda_ = 7.0
+            zeta = 0.3
+    else:
+        if iter_num == 20:
+            lambda_ = 15.0
+            zeta = 0.5
+        else:
+            lambda_ = 12.0
+            zeta = 0.4
 
     calc_LPIPS              = True
     use_DIY_kernel          = True

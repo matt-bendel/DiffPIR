@@ -106,7 +106,7 @@ def main():
     # L_path, E_path, H_path, mask_path
     # ----------------------------------------
 
-    L_path = '/storage/FFHQ/ffhq256_diffpirtest/0' # L_path, for Low-quality images
+    L_path = '/storage/FFHQ/ffhq256_firetest/0' # L_path, for Low-quality images
     E_path                  = os.path.join(results, result_name)        # E_path, for Estimated images
     mask_path               = os.path.join(testsets, mask_name)         # mask_path, for mask images
     util.mkdir(E_path)

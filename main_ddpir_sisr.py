@@ -497,11 +497,7 @@ def main():
                 return test_results_ave
 
             # experiments
-            lambdas = [lambda_*i for i in range(2,13)]
-            for lambda_ in lambdas:
-                #for zeta_i in [zeta*i for i in range(2,4)]:
-                for zeta_i in [0.25]:
-                    test_results_ave = test_rho(lambda_, zeta=zeta_i, model_output_type=model_output_type)
+            test_results_ave = test_rho(lambda_, zeta=zeta, model_output_type=model_output_type)
 
     # ---------------------------------------
     # Average PSNR and LPIPS for all sf and kernels

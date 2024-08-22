@@ -452,10 +452,7 @@ def main():
 
     
     # experiments
-    lambdas = [lambda_*i for i in range(7,8)]
-    for lambda_ in lambdas:
-        for zeta_i in [zeta*i for i in range(3,4)]:
-            test_rho(lambda_, zeta=zeta_i, model_output_type=model_output_type)
+    test_rho(lambda_, zeta=zeta, model_output_type=model_output_type)
 
 
 if __name__ == '__main__':

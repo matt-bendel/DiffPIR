@@ -61,10 +61,10 @@ def main():
 
     if noise_level_img > 0:
         if iter_num == 20:
-            lambda_ = 8.0
-            zeta = 0.5
+            lambda_ = 12.0
+            zeta = 0.9
         else:
-            lambda_ = 7.0
+            lambda_ = 8.0
             zeta = 0.3
     else:
         if iter_num == 20:

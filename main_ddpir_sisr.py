@@ -61,11 +61,11 @@ def main():
 
     if noise_level_img > 0:
         if iter_num == 20:
-            lambda_ = 8.0
-            zeta = 0.4
+            lambda_ = 10.0
+            zeta = 0.5
         else:
-            lambda_ = 8.0
-            zeta = 0.2
+            lambda_ = 9.0
+            zeta = 0.5
     else:
         if iter_num == 20:
             lambda_ = 9.0
@@ -88,7 +88,7 @@ def main():
     testsets                = os.path.join(cwd, 'testsets')     # fixed
     results                 = os.path.join(cwd, f'{iter_num}')      # fixed
     result_name             = f'{testset_name}_{task_current}_{generate_mode}_{sr_mode}{str(test_sf)}_{model_name}_sigma{noise_level_img}_NFE{iter_num}_eta{eta}_zeta{zeta}_lambda{lambda_}'
-    model_path              = '/storage/matt_models/dps/ffhq_10m.pt'
+    model_path              = '/storage/matt_models/dps/imagenet256.pt'
     device                  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     torch.cuda.empty_cache()
 
@@ -116,7 +116,7 @@ def main():
     # L_path, E_path, H_path
     # ----------------------------------------
 
-    L_path = '/storage/FFHQ/ffhq256_firetest/0' # L_path, for Low-quality images
+    L_path = '/storage/imagenet_val' # L_path, for Low-quality images
     E_path = os.path.join(results, result_name)   # E_path, for Estimated images
     util.mkdir(E_path)
 

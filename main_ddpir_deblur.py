@@ -32,10 +32,10 @@ def main():
 
     noise_level_img         = 12.75/255.0           # set AWGN noise level for LR image, default: 0
     noise_level_model       = noise_level_img       # set noise level of model, default: 0
-    model_name              = 'diffusion_ffhq_10m'  # diffusion_ffhq_10m, 256x256_diffusion_uncond; set diffusino model
-    testset_name            = 'ffhq_val_100'            # set testing set,  'imagenet_val' | 'ffhq_val'
+    model_name              = '256x256_diffusion_uncond'  # diffusion_ffhq_10m, 256x256_diffusion_uncond; set diffusino model
+    testset_name            = 'imagenet_val'            # set testing set,  'imagenet_val' | 'ffhq_val'
     num_train_timesteps     = 1000
-    iter_num                = 20                # set number of iterations
+    iter_num                = 100                # set number of iterations
     iter_num_U              = 1                 # set number of inner iterations, default: 1
     skip                    = num_train_timesteps//iter_num     # skip interval
 
@@ -88,7 +88,7 @@ def main():
     testsets                = os.path.join(cwd, 'testsets')     # fixed
     results                 = os.path.join(cwd, f'{iter_num}')      # fixed
     result_name             = f'{testset_name}_{task_current}_{generate_mode}_{model_name}_sigma{noise_level_img}_NFE{iter_num}_eta{eta}_zeta{zeta}_lambda{lambda_}_blurmode{blur_mode}'
-    model_path              = '/storage/matt_models/dps/ffhq_10m.pt'
+    model_path              = '/storage/matt_models/dps/imagenet256.pt'
     device                  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     torch.cuda.empty_cache()
 
@@ -115,7 +115,7 @@ def main():
     # L_path, E_path, H_path
     # ----------------------------------------
 
-    L_path = '/storage/FFHQ/ffhq256_firetest/0' # L_path, for Low-quality images
+    L_path = '/storage/imagenet_val' # L_path, for Low-quality images
     E_path = os.path.join(results, result_name)   # E_path, for Estimated images
     util.mkdir(E_path)
 

@@ -330,7 +330,7 @@ def main():
                 x_0 = (x/2+0.5)
                 if (i + 1) in [25, 50, 75]:
                     import matplotlib.pyplot as plt
-                    plt.imsave(f'intermediate_diffpir_{idx}_{im_count}.png', clear_color(x_0[0]))
+                    plt.imsave(f'intermediate_diffpir_{idx}_{im_count}.png', clear_color(x0[0]))
                     im_count += 1
 
                 if save_progressive and (seq[i] in progress_seq):

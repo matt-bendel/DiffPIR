@@ -328,7 +328,7 @@ def main():
 
                 # save the process
                 x_0 = (x/2+0.5)
-                if (i + 1) in [25, 50, 75]:
+                if (i + 1) in [10, 35, 60]:
                     import matplotlib.pyplot as plt
                     plt.imsave(f'intermediate_diffpir_{idx}_{im_count}.png', clear_color(x0[0]))
                     im_count += 1

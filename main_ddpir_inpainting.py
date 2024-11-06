@@ -20,6 +20,19 @@ from guided_diffusion.script_util import (
     args_to_dict,
 )
 
+def clear_color(x):
+    if torch.is_complex(x):
+        x = torch.abs(x)
+    x = x.detach().cpu().squeeze().numpy()
+    return normalize_np(np.transpose(x, (1, 2, 0)))
+
+
+def normalize_np(img):
+    """ Normalize img in arbitrary range to [0, 1] """
+    img -= np.min(img)
+    img /= np.max(img)
+    return img
+
 def main():
 
     # ----------------------------------------
@@ -163,6 +176,8 @@ def main():
             test_results['lpips'] = []
 
         for idx, img in enumerate(L_paths):
+            if idx > 2:
+                exit()
 
             # --------------------------------
             # (1) get img_H and img_L
@@ -238,6 +253,8 @@ def main():
             progress_seq.append(seq[-1])
 
             # reverse diffusion for one image from random noise
+            im_count = 0
+
             for i in range(len(seq)):
                 curr_sigma = sigmas[seq[i]].cpu().numpy()
                 # time step associated with the noise level sigmas[i]
@@ -301,7 +318,7 @@ def main():
                         eta_sigma = eta * sqrt_1m_alphas_cumprod[t_im1] / sqrt_1m_alphas_cumprod[t_i] * torch.sqrt(betas[t_i])
                         x = sqrt_alphas_cumprod[t_im1] * x0 + np.sqrt(1-zeta) * (torch.sqrt(sqrt_1m_alphas_cumprod[t_im1]**2 - eta_sigma**2) * eps \
                                     + eta_sigma * torch.randn_like(x)) + np.sqrt(zeta) * sqrt_1m_alphas_cumprod[t_im1] * torch.randn_like(x)
-                        
+
                     # set back to x_t from x_{t-1}
                     if u < iter_num_U-1 and seq[i] != seq[-1]:
                         # x = torch.sqrt(alphas[t_i]) * x + torch.sqrt(betas[t_i]) * torch.randn_like(x)
@@ -311,6 +328,11 @@ def main():
 
                 # save the process
                 x_0 = (x/2+0.5)
+                if (i + 1) in [25, 50, 75]:
+                    import matplotlib.pyplot as plt
+                    plt.imsave(f'intermediate_diffpir_{idx}_{im_count}.png', clear_color(x_0[0]))
+                    im_count += 1
+
                 if save_progressive and (seq[i] in progress_seq):
                     x_show = x_0.clone().detach().cpu().numpy()       #[0,1]
                     x_show = np.squeeze(x_show)

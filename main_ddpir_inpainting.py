@@ -176,7 +176,7 @@ def main():
             test_results['lpips'] = []
 
         for idx, img in enumerate(L_paths):
-            if idx > 2:
+            if idx > 10:
                 exit()
 
             # --------------------------------

@@ -24,6 +24,18 @@ from guided_diffusion.script_util import (
     args_to_dict,
 )
 
+def clear_color(x):
+    if torch.is_complex(x):
+        x = torch.abs(x)
+    x = x.detach().cpu().squeeze().numpy()
+    return normalize_np(np.transpose(x, (1, 2, 0)))
+
+
+def normalize_np(img):
+    """ Normalize img in arbitrary range to [0, 1] """
+    img -= np.min(img)
+    img /= np.max(img)
+    return img
 
 def main():
     # ----------------------------------------

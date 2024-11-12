@@ -39,7 +39,7 @@ def main():
     # Preparation
     # ----------------------------------------
 
-    noise_level_img         = 0.0 #0.0/255.0           # set AWGN noise level for LR image, default: 0
+    noise_level_img         = 12.75 / 255.0 #0.0/255.0           # set AWGN noise level for LR image, default: 0
     noise_level_model       = noise_level_img   # set noise level of model, default: 0
     model_name              = 'diffusion_ffhq_10m'  # 256x256_diffusion_uncond, diffusion_ffhq_10m; set diffusino model
     testset_name            = 'demo_test'        # set testing set, 'imagenet_val' | 'ffhq_val'
@@ -69,7 +69,12 @@ def main():
     guidance_scale          = 1.0
 
     if noise_level_img > 0:
-        pass # TODO
+        if iter_num == 20:
+            lambda_ = 6.0
+            zeta = 1.0
+        else:
+            lambda_ = 6.0
+            zeta = 0.5
     else:
         if iter_num == 20:
             lambda_ = 6.0
@@ -176,9 +181,6 @@ def main():
             test_results['lpips'] = []
 
         for idx, img in enumerate(L_paths):
-            if idx > 10:
-                exit()
-
             # --------------------------------
             # (1) get img_H and img_L
             # --------------------------------
@@ -328,10 +330,6 @@ def main():
 
                 # save the process
                 x_0 = (x/2+0.5)
-                if (i + 1) in [10, 25, 50]:
-                    import matplotlib.pyplot as plt
-                    plt.imsave(f'motivation_fig/inp_box_diffpir_{idx - 1}_{im_count}.png', clear_color(x0[0]))
-                    im_count += 1
 
                 if save_progressive and (seq[i] in progress_seq):
                     x_show = x_0.clone().detach().cpu().numpy()       #[0,1]

@@ -41,8 +41,8 @@ def main():
 
     noise_level_img         = 12.75 / 255.0 #0.0/255.0           # set AWGN noise level for LR image, default: 0
     noise_level_model       = noise_level_img   # set noise level of model, default: 0
-    model_name              = 'diffusion_ffhq_10m'  # 256x256_diffusion_uncond, diffusion_ffhq_10m; set diffusino model
-    testset_name            = 'demo_test'        # set testing set, 'imagenet_val' | 'ffhq_val'
+    model_name              = '256x256_diffusion_uncond'  # 256x256_diffusion_uncond, diffusion_ffhq_10m; set diffusino model
+    testset_name            = 'imagenet_val'        # set testing set, 'imagenet_val' | 'ffhq_val'
     num_train_timesteps     = 1000
     iter_num                = 20              # set number of iterations
     iter_num_U              = 1                 # set number of inner iterations, default: 1
@@ -96,7 +96,7 @@ def main():
     testsets                = os.path.join('', 'testsets')     # fixed
     results                 = os.path.join(cwd, f'{iter_num}')      # fixed
     result_name             = f'{testset_name}_{task_current}_{generate_mode}_{mask_type}_{model_name}_sigma{noise_level_img}_NFE{iter_num}_eta{eta}_zeta{zeta}_lambda{lambda_}'
-    model_path              = '/storage/matt_models/dps/ffhq_10m.pt'
+    model_path = '/storage/matt_models/dps/imagenet256.pt'
     device                  = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     torch.cuda.empty_cache()
 
@@ -124,7 +124,7 @@ def main():
     # L_path, E_path, H_path, mask_path
     # ----------------------------------------
 
-    L_path = '/storage/FFHQ/ffhq256_firetest/0' # L_path, for Low-quality images
+    L_path = '/storage/imagenet_val'  # L_path, for Low-quality images
     E_path                  = os.path.join(results, result_name)        # E_path, for Estimated images
     mask_path               = os.path.join(testsets, mask_name)         # mask_path, for mask images
     util.mkdir(E_path)
@@ -138,17 +138,17 @@ def main():
     # ----------------------------------------
 
     model_config = dict(
-            model_path=model_path,
-            num_channels=128,
-            num_res_blocks=1,
-            attention_resolutions="16",
-        ) if model_name == 'diffusion_ffhq_10m' \
+        model_path=model_path,
+        num_channels=128,
+        num_res_blocks=1,
+        attention_resolutions="16",
+    ) if model_name == 'diffusion_ffhq_10m' \
         else dict(
-            model_path=model_path,
-            num_channels=256,
-            num_res_blocks=2,
-            attention_resolutions="8,16,32",
-        )
+        model_path=model_path,
+        num_channels=256,
+        num_res_blocks=2,
+        attention_resolutions="8,16,32",
+    )
     args = utils_model.create_argparser(model_config).parse_args([])
     model, diffusion = create_model_and_diffusion(
         **args_to_dict(args, model_and_diffusion_defaults().keys()))

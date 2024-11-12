@@ -44,7 +44,7 @@ def main():
     model_name              = 'diffusion_ffhq_10m'  # 256x256_diffusion_uncond, diffusion_ffhq_10m; set diffusino model
     testset_name            = 'demo_test'        # set testing set, 'imagenet_val' | 'ffhq_val'
     num_train_timesteps     = 1000
-    iter_num                = 100              # set number of iterations
+    iter_num                = 20              # set number of iterations
     iter_num_U              = 1                 # set number of inner iterations, default: 1
     skip                    = num_train_timesteps//iter_num     # skip interval
 
